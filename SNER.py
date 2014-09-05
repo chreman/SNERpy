@@ -61,6 +61,13 @@ def get_NEs(text):
 
 
 
+def create_ngrams(tokens, n):
+    ngramslist = []
+    for i in range(len(tokens)-n+1):
+        ngramslist.append(" ".join(tokens[i:i+n]))
+    return ngramslist
+
+
 def loop_over_ngrams(tokens, tokentype, text):
     """
     Creates entities of length up to four out of found entities,
@@ -68,18 +75,6 @@ def loop_over_ngrams(tokens, tokentype, text):
     If an entity like Federal Reserve exists, it will not be 
     searched for separately.
     """
-
-    ngram_entities = []
-
-    tokens_found = set()
-
-
-    def create_ngrams(tokens, n):
-        ngramslist = []
-        for i in range(len(tokens)-n+1):
-            ngramslist.append(" ".join(tokens[i:i+n]))
-        return ngramslist
-
 
     def find_tokens(ngrams):
         for ngram in ngrams:
@@ -104,6 +99,9 @@ def loop_over_ngrams(tokens, tokentype, text):
             tokens_found.add(gram)
 
 
+    ngram_entities = []
+    tokens_found = set()
+
     fourgrams = create_ngrams(tokens, 4)
     trigrams = create_ngrams(tokens, 3)
     bigrams = create_ngrams(tokens, 2)
@@ -112,5 +110,6 @@ def loop_over_ngrams(tokens, tokentype, text):
     find_tokens(trigrams)
     find_tokens(bigrams)
     find_tokens(tokens)
+
 
     return ngram_entities
