@@ -17,7 +17,7 @@ def get_NEs(text):
     entities = [{"normalized": "Stanford", 
                  "type":"Location", 
                  "occurrences": ["start": 10
-                                 "end": 24]
+                                 "end": 18]
                  }, 
                  {...}
                 ]
@@ -104,18 +104,13 @@ def loop_over_ngrams(tokens, tokentype, text):
             tokens_found.add(gram)
 
 
-    if tokens:
-        fourgrams = create_ngrams(tokens, 4)
-        trigrams = create_ngrams(tokens, 3)
-        bigrams = create_ngrams(tokens, 2)
+    fourgrams = create_ngrams(tokens, 4)
+    trigrams = create_ngrams(tokens, 3)
+    bigrams = create_ngrams(tokens, 2)
 
-    if fourgrams:
-        find_tokens(fourgrams)
-    if trigrams:
-        find_tokens(trigrams)
-    if bigrams:
-        find_tokens(bigrams)
-    if tokens:
-        find_tokens(tokens)
+    find_tokens(fourgrams)
+    find_tokens(trigrams)
+    find_tokens(bigrams)
+    find_tokens(tokens)
 
     return ngram_entities
